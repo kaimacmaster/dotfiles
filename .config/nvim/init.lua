@@ -17,6 +17,9 @@ vim.keymap.set('n', '<A-Up>', ':m-2<CR>==', { noremap = true, silent = true })
 vim.keymap.set('v', '<A-Down>', ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
 vim.keymap.set('v', '<A-Up>', ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
 
+-- Force quit without saving
+vim.keymap.set('n', '<leader>q', ':q!<CR>', { noremap = true, silent = true })
+
 -- Remove quotes from keys in an object
 vim.keymap.set('n', '<leader>dq', [[:%s/['"]\(\w\+\)['"]:/\1:/g<CR>]], { noremap = true, silent = true })
 
