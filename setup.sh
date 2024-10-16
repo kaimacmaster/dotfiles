@@ -27,5 +27,6 @@ backup_and_link ~/dotfiles/.zshrc ~/.zshrc
 backup_and_link ~/dotfiles/.config/nvim ~/.config/nvim
 backup_and_link ~/dotfiles/.config/kitty ~/.config/kitty
 backup_and_link ~/dotfiles/.config/alacritty ~/.config/alacritty
+backup_and_link ~/dotfiles/.config/hypr ~/.config/hypr
 
 echo "Setup complete! Backups are stored in $BACKUP_DIR."
