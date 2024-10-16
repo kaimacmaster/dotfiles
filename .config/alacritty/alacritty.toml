@@ -2,12 +2,12 @@ live_config_reload = true
 
 [window]
 opacity = 0.9
-padding = { x = 5, y = 5 }
-decorations = "None"
+padding = { x = 5, y = 10 }
+decorations = "Full"
 dynamic_padding = true
 blur = true
 
 [font]
 normal = { family = "JetBrainsMono Nerd Font" }
-
+size = 14.0
 
