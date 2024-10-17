@@ -1,0 +1,9 @@
+# User configuration
+export EDITOR='nvim'
+
+# Aliases
+alias ll='ls -alF'
+alias yd='nvm use && yarn dev'
+alias yid='nvm use && yarn && yarn dev'
+alias nv='nvim'
+
