@@ -33,6 +33,7 @@ backup_and_link ~/dotfiles/config/nvim ~/.config/nvim
 backup_and_link ~/dotfiles/config/kitty ~/.config/kitty
 backup_and_link ~/dotfiles/config/alacritty ~/.config/alacritty
 backup_and_link ~/dotfiles/config/hypr ~/.config/hypr
+backup_and_link ~/dotfiles/config/waybar ~/.config/waybar
 backup_and_link ~/dotfiles/zsh_aliases ~/.zsh_aliases
 
 # Add a line to include aliases file in .zshrc if it doesn't exist
