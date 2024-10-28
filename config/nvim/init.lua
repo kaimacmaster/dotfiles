@@ -87,7 +87,7 @@ vim.cmd([[let g:lightline = {'colorscheme': 'monokaipro'}]])
 require("telescope")
 require('mason').setup()
 require('mason-lspconfig').setup({
-  ensure_installed = { 'vuels', 'volar', 'eslint', 'html', 'tailwindcss' },
+  ensure_installed = { 'vuels', 'volar', 'eslint', 'html', 'tailwindcss', 'ts_ls' },
 })
 
 -- Setup LSP config for Volar
