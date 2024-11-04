@@ -77,7 +77,8 @@ vim.keymap.set('n', '<leader>g', builtin.live_grep, {})
 -- Set theme
 require("monokai-pro").setup({
   transparent_background = true,
-  terminal_colors = true,
+  terminal_colors = false,
+  filter = "spectrum",
 })
 
 vim.cmd([[colorscheme monokai-pro]])
@@ -87,7 +88,7 @@ vim.cmd([[let g:lightline = {'colorscheme': 'monokaipro'}]])
 require("telescope")
 require('mason').setup()
 require('mason-lspconfig').setup({
-  ensure_installed = { 'vuels', 'volar', 'eslint', 'html', 'tailwindcss', 'ts_ls' },
+  ensure_installed = { 'vuels', 'volar', 'eslint', 'html', 'tailwindcss', 'cssls' },
 })
 
 -- Setup LSP config for Volar
@@ -95,61 +96,42 @@ local lspconfig = require('lspconfig')
 local coq = require('coq')
 
 -- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
-  -- Enable completion triggered by <c-x><c-o>
   buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-  -- Mappings.
   local opts = { noremap=true, silent=true }
-
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  --buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  --buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  --buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  --buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  --buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  --buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  --buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  --buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-  --buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  --buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  --buf_set_keymap('n', 'gR', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  --buf_set_keymap('n', '<space>e', '<cmd>lua vim.diagnostic.open_float({source="always"})<CR>', opts)
-  --buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-  --buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-  --buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-  --buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.format()<CR>', opts)
-  --buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  --vim.keymap.set({ "v", "n" }, "<space>ca", require("actions-preview").code_actions)
-  --vim.keymap.set('n', '<leader>h', function () vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end)
 end
 
 lspconfig.volar.setup(coq.lsp_ensure_capabilities({
-  filetypes = { 'vue', 'typescript', 'javascript', 'javascriptreact', 'typescriptreact' },
+  filetypes = { 'vue' },
 }))
 
 lspconfig.ts_ls.setup(coq.lsp_ensure_capabilities({
   on_attach = on_attach,
-  filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
-}))
-
-lspconfig.html.setup(coq.lsp_ensure_capabilities({
-  on_attach = on_attach,
-  filetypes = { 'html', 'vue' },
+  filetypes = { 'typescript', 'javascript','vue' },
 }))
 
 lspconfig.tailwindcss.setup(coq.lsp_ensure_capabilities({
   on_attach = on_attach,
-  filetypes = { 'css', 'scss', 'less', 'vue' },
+  filetypes = { 'vue' },
 }))
 
+lspconfig.cssls.setup(coq.lsp_ensure_capabilities({
+  on_attach = on_attach,
+  filetypes = { 'vue', 'css', 'scss', 'less' },
+}))
+
+lspconfig.html.setup(coq.lsp_ensure_capabilities({
+  on_attach = on_attach,
+  filetypes = { 'html' },
+}))
 --lspconfig.vuels.setup(coq.lsp_ensure_capabilities({ filetypes = { 'vue' } }))
 
 require("nvim-treesitter.configs").setup({
+  ensure_installed = { 'vue', 'typescript', 'javascript', 'css', 'scss', 'html' },
   highlight = {
     enable = true,
   }
@@ -181,6 +163,24 @@ vim.api.nvim_set_var('chadtree_settings', {
 --open chattree with <leader>o
 vim.keymap.set('n', '<leader>o', ':CHADopen<CR>', { noremap = true, silent = true })
 
+-- ALE
+vim.g.ale_enabled = 1
+vim.g.ale_linters_explicit = 1
+vim.g.ale_fixers = {
+  vue = { 'prettier' },
+  javascript = { 'prettier' },
+  typescript = { 'prettier' },
+  css = { 'prettier' },
+  scss = { 'prettier' },
+  less = { 'prettier' },
+  html = { 'prettier' },
+}
 
+vim.keymap.set('n', '<leader>lp', ':ALEFix<CR>', { noremap = true, silent = true })
+vim.keymap.set('v', '<leader>lp', ':ALEFix<CR>', { noremap = true, silent = true })
+
+-- Auto close empty tags ></div> or ></span> etc by replacing with /> and moving cursor inside the tag
+--vim.keymap.set('n', '<leader>ac', ':%s/<\/\(\w\+\)>/<\1\/>/g<CR>:%s/<\(\w\+\)\/>/<<\1\/>><CR>:%s/<\(\w\+\)\/>><CR>')
+--vim.keymap.set('n', '<leader>ac', ':%s { noremap = true, silent = true })
 
 
