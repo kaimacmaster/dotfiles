@@ -66,6 +66,7 @@ Plug('williamboman/mason-lspconfig.nvim')
 Plug('github/copilot.vim')
 Plug('dense-analysis/ale')
 Plug('kosayoda/nvim-lightbulb')
+Plug('tris203/hawtkeys.nvim')
 
 vim.call('plug#end')
 
@@ -91,6 +92,27 @@ require('mason-lspconfig').setup({
   ensure_installed = { 'vuels', 'volar', 'eslint', 'html', 'tailwindcss', 'cssls' },
 })
 
+-- Setup Hawtkeys
+require('hawtkeys').setup({
+  default_keymap = {
+    ['<leader>'] = {
+      ['f'] = 'Find files',
+      ['g'] = 'Live grep',
+      ['o'] = 'Open file tree',
+      ['lp'] = 'Fix linting errors',
+      ['ac'] = 'Auto close empty tags',
+      ['dq'] = 'Remove quotes from keys in an object',
+    },
+    ['<A-j>'] = 'Move line down',
+    ['<A-k>'] = 'Move line up',
+    ['<leader>q'] = 'Force quit without saving',
+    ['<leader>y'] = 'Copy to system clipboard',
+    ['<leader>p'] = 'Paste from system clipboard',
+  }
+})
+
+vim.keymap.set('n', '<leader>,', ':HawtkeysAll<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>h', ':Hawtkeys<CR>', { noremap = true, silent = true })
 -- Setup LSP config for Volar
 local lspconfig = require('lspconfig')
 local coq = require('coq')
@@ -104,6 +126,11 @@ local on_attach = function(client, bufnr)
 
   local opts = { noremap=true, silent=true }
 end
+
+lspconfig.vuels.setup(coq.lsp_ensure_capabilities({
+  on_attach = on_attach,
+  filetypes = { 'vue' },
+}))
 
 lspconfig.volar.setup(coq.lsp_ensure_capabilities({
   filetypes = { 'vue' },
@@ -128,7 +155,6 @@ lspconfig.html.setup(coq.lsp_ensure_capabilities({
   on_attach = on_attach,
   filetypes = { 'html' },
 }))
---lspconfig.vuels.setup(coq.lsp_ensure_capabilities({ filetypes = { 'vue' } }))
 
 require("nvim-treesitter.configs").setup({
   ensure_installed = { 'vue', 'typescript', 'javascript', 'css', 'scss', 'html' },
@@ -178,6 +204,11 @@ vim.g.ale_fixers = {
 
 vim.keymap.set('n', '<leader>lp', ':ALEFix<CR>', { noremap = true, silent = true })
 vim.keymap.set('v', '<leader>lp', ':ALEFix<CR>', { noremap = true, silent = true })
+
+vim.keymap.set('n', '<leader>sv', ':vnew' , { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>sh', ':split' , { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>st', ':tabnew' , { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>so', ':only' , { noremap = true, silent = true })
 
 -- Auto close empty tags ></div> or ></span> etc by replacing with /> and moving cursor inside the tag
 --vim.keymap.set('n', '<leader>ac', ':%s/<\/\(\w\+\)>/<\1\/>/g<CR>:%s/<\(\w\+\)\/>/<<\1\/>><CR>:%s/<\(\w\+\)\/>><CR>')
