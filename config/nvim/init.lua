@@ -205,10 +205,10 @@ vim.g.ale_fixers = {
 vim.keymap.set('n', '<leader>lp', ':ALEFix<CR>', { noremap = true, silent = true })
 vim.keymap.set('v', '<leader>lp', ':ALEFix<CR>', { noremap = true, silent = true })
 
-vim.keymap.set('n', '<leader>sv', ':vnew' , { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>sh', ':split' , { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>st', ':tabnew' , { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>so', ':only' , { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>sv<CR>', ':vnew' , { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>sh<CR>', ':split' , { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>st<CR>', ':tabnew' , { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>so<CR>', ':only' , { noremap = true, silent = true })
 
 -- Auto close empty tags ></div> or ></span> etc by replacing with /> and moving cursor inside the tag
 --vim.keymap.set('n', '<leader>ac', ':%s/<\/\(\w\+\)>/<\1\/>/g<CR>:%s/<\(\w\+\)\/>/<<\1\/>><CR>:%s/<\(\w\+\)\/>><CR>')
