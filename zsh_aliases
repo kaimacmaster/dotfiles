@@ -6,4 +6,7 @@ alias ll='ls -alF'
 alias yd='nvm use && yarn dev'
 alias yid='nvm use && yarn && yarn dev'
 alias nv='nvim'
-alias :q='exit'
+alias gs='git status'
+alias gc='git commit -m'
+alias ga='git add'
+
