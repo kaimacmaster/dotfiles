@@ -47,9 +47,17 @@ vim.opt.scrolloff = 10
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
+-- Disable esc from exiting insert mode
+vim.api.nvim_set_keymap('i', '<Esc>', '<Nop>', { noremap = true, silent = true })
 
 vim.call('plug#begin')
 
+Plug('tpope/vim-fugitive')
+Plug('lewis6991/gitsigns.nvim')
+Plug('tpope/vim-surround')
+Plug('tpope/vim-repeat')
+Plug('tpope/vim-abolish')
+Plug('preservim/nerdcommenter')
 Plug('loctvl842/monokai-pro.nvim')
 Plug('itchyny/lightline.vim')
 Plug('nvim-telescope/telescope.nvim', { tag = '0.1.8' })
@@ -132,9 +140,9 @@ lspconfig.vuels.setup(coq.lsp_ensure_capabilities({
   filetypes = { 'vue' },
 }))
 
-lspconfig.volar.setup(coq.lsp_ensure_capabilities({
-  filetypes = { 'vue' },
-}))
+--lspconfig.volar.setup(coq.lsp_ensure_capabilities({
+--  filetypes = { '' },
+--}))
 
 lspconfig.ts_ls.setup(coq.lsp_ensure_capabilities({
   on_attach = on_attach,
