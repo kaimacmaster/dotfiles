@@ -53,6 +53,9 @@ vim.api.nvim_set_keymap('i', '<Esc>', '<Nop>', { noremap = true, silent = true }
 vim.call('plug#begin')
 
 Plug('tpope/vim-fugitive')
+Plug('folke/noice.nvim')
+Plug('MunifTanjim/nui.nvim')
+Plug('rcarriga/nvim-notify')
 Plug('lewis6991/gitsigns.nvim')
 Plug('tpope/vim-surround')
 Plug('tpope/vim-repeat')
@@ -74,14 +77,33 @@ Plug('williamboman/mason-lspconfig.nvim')
 Plug('github/copilot.vim')
 Plug('dense-analysis/ale')
 Plug('kosayoda/nvim-lightbulb')
-Plug('tris203/hawtkeys.nvim')
 
 vim.call('plug#end')
 
+-- Noice
+require("noice").setup({
+  lsp = {
+    -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+    override = {
+      ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+      ["vim.lsp.util.stylize_markdown"] = true,
+      ["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+    },
+  },
+  -- you can enable a preset for easier configuration
+  presets = {
+    bottom_search = true, -- use a classic bottom cmdline for search
+    command_palette = true, -- position the cmdline and popupmenu together
+    long_message_to_split = true, -- long messages will be sent to a split
+    inc_rename = false, -- enables an input dialog for inc-rename.nvim
+    lsp_doc_border = false, -- add a border to hover docs and signature help
+  },
+})
+
 -- Telescope
 local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>f', builtin.find_files, {})
-vim.keymap.set('n', '<leader>g', builtin.live_grep, {})
+vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 
 -- Set theme
 require("monokai-pro").setup({
@@ -100,27 +122,6 @@ require('mason-lspconfig').setup({
   ensure_installed = { 'vuels', 'volar', 'eslint', 'html', 'tailwindcss', 'cssls' },
 })
 
--- Setup Hawtkeys
-require('hawtkeys').setup({
-  default_keymap = {
-    ['<leader>'] = {
-      ['f'] = 'Find files',
-      ['g'] = 'Live grep',
-      ['o'] = 'Open file tree',
-      ['lp'] = 'Fix linting errors',
-      ['ac'] = 'Auto close empty tags',
-      ['dq'] = 'Remove quotes from keys in an object',
-    },
-    ['<A-j>'] = 'Move line down',
-    ['<A-k>'] = 'Move line up',
-    ['<leader>q'] = 'Force quit without saving',
-    ['<leader>y'] = 'Copy to system clipboard',
-    ['<leader>p'] = 'Paste from system clipboard',
-  }
-})
-
-vim.keymap.set('n', '<leader>,', ':HawtkeysAll<CR>', { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>h', ':Hawtkeys<CR>', { noremap = true, silent = true })
 -- Setup LSP config for Volar
 local lspconfig = require('lspconfig')
 local coq = require('coq')
