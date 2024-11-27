@@ -52,8 +52,8 @@ Plug('nvim-lua/plenary.nvim')
 -- Treesitter for Syntax Highlighting
 Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' }) 
 
--- Tmux Integration
-Plug('edkolev/tmuxline.vim')
+-- File Explorer
+Plug('nvim-telescope/telescope-file-browser.nvim')
 
 -- LSP and Autocompletion
 Plug('neovim/nvim-lspconfig')
@@ -76,6 +76,8 @@ Plug('github/copilot.vim')
 
 -- LSP Enhancements
 Plug('nvimdev/lspsaga.nvim')
+Plug('windwp/nvim-autopairs')
+Plug('windwp/nvim-ts-autotag')
 
 -- Lightbulb Indicator
 Plug('kosayoda/nvim-lightbulb')
@@ -116,6 +118,8 @@ keymap('n', '<leader>dq', [[:%s/['"]\(\w\+\)['"]:/\1:/g<CR>]], opts)
 local builtin = require('telescope.builtin')
 keymap('n', '<leader>ff', builtin.find_files, opts)
 keymap('n', '<leader>fg', builtin.live_grep, opts)
+keymap('n', '<leader>fb', builtin.buffers, opts)
+keymap('n', '<leader>fh', builtin.help_tags, opts)
 
 -- Split and Tab Management
 keymap('n', '<leader>sv', ':vnew<CR>', opts)
@@ -126,6 +130,9 @@ keymap('n', '<leader>so', ':only<CR>', opts)
 -- Lspsaga keybindings
 keymap('n', 'ca', ':Lspsaga code_action<CR>', opts)
 keymap('n', 'gt', ':Lspsaga term_toggle<CR>', opts)
+
+-- File Explorer
+vim.keymap.set("n", "<leader>o", ":Telescope file_browser path=%:p:h select_buffer=true<CR>")
 
 -- ====== Plugin Configurations ======
 
@@ -163,6 +170,11 @@ require("noice").setup({
 
 -- ====== Telescope ======
 require("telescope").setup({})
+require("telescope").load_extension("file_browser")
+
+-- ====== Autopairs and Autotag ======
+require("nvim-ts-autotag").setup()
+require("nvim-autopairs").setup()
 
 -- ====== Theme ======
 require("monokai-pro").setup({
