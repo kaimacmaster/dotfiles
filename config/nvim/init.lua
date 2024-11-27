@@ -62,6 +62,7 @@ Plug('ms-jpq/coq.artifacts', { branch = 'artifacts' })
 Plug('hrsh7th/nvim-cmp')
 Plug('hrsh7th/cmp-buffer')
 Plug('hrsh7th/cmp-nvim-lsp')
+Plug('hrsh7th/cmp-path')
 Plug('onsails/lspkind-nvim')
 Plug('L3MON4D3/LuaSnip')
 
@@ -307,9 +308,10 @@ cmp.setup({
     }),
   }),
   sources = cmp.config.sources({
-    { name = 'nvim_lsp' }, -- LSP completions
-    { name = 'luasnip' },  -- Snippets
-    { name = 'buffer' },   -- Buffer completions
+    { name = 'nvim_lsp', priority = 90 }, -- LSP completions
+    { name = 'luasnip', priority = 80 },  -- Snippets
+    { name = 'buffer', priority = 70 },   -- Buffer completions
+    { name = 'path', priority = 100, options = { trailing_slash = true } },     -- Path completions
   }),
   formatting = {
     format = lspkind.cmp_format({ -- Use lspkind for formatting
