@@ -1,3 +1,5 @@
+-- Author: Kai Macmaster
+
 -- ==========================
 -- Neovim Lua Configuration
 -- ==========================
@@ -63,6 +65,7 @@ Plug('hrsh7th/cmp-nvim-lsp')
 Plug('hrsh7th/cmp-path')
 Plug('onsails/lspkind-nvim')
 Plug('L3MON4D3/LuaSnip')
+Plug('luckasRanarison/tailwind-tools.nvim')
 
 -- File Explorer
 Plug('nvim-lua/popup.nvim')
@@ -130,6 +133,9 @@ keymap('n', '<leader>so', ':only<CR>', opts)
 -- Lspsaga keybindings
 keymap('n', 'ca', ':Lspsaga code_action<CR>', opts)
 keymap('n', 'gt', ':Lspsaga term_toggle<CR>', opts)
+
+-- Cheeky save
+keymap('n', '<C-s>', ':w<CR>', opts)
 
 -- File Explorer
 vim.keymap.set("n", "<leader>o", ":Telescope file_browser path=%:p:h select_buffer=true<CR>")
@@ -199,7 +205,7 @@ local lspconfig = require('lspconfig')
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 -- Define LSP server list
-local servers = { 'volar', 'ts_ls', 'vuels' }
+local servers = { 'volar', 'ts_ls', 'vuels', 'tailwindcss' }
 
 -- Setup each server with a loop
 for _, server in ipairs(servers) do
@@ -280,6 +286,16 @@ cmp.setup({
     }),
   },
 })
+
+-- ===== tailwind-tools =====
+
+require("tailwind-tools").setup({
+  -- your configuration
+  document_color = {
+    kind = 'foreground'
+  }
+})
+
 
 -- ==========================
 -- End of Configuration
