@@ -10,6 +10,8 @@ local vim = vim
 -- Set leader keys
 vim.g.mapleader = ','
 vim.g.maplocalleader = ','
+vim.g.loaded_netrw = 1 
+vim.g.loaded_netrwPlugin = 1 
 
 -- Basic Options
 vim.opt.tabstop = 2               -- Set tab width for display
@@ -21,6 +23,7 @@ vim.opt.ignorecase = true         -- Ignore case in searches
 vim.opt.smartcase = true          -- Override ignorecase if uppercase is used
 vim.opt.completeopt = 'menuone,noinsert,noselect' -- Completion options
 vim.opt.number = true             -- Show line numbers
+vim.opt.termguicolors = true      -- Enable 24-bit colour 
 
 -- Disable Esc from exiting insert mode
 vim.api.nvim_set_keymap('i', '<Esc>', '<Nop>', { noremap = true, silent = true })
@@ -55,7 +58,8 @@ Plug('nvim-lua/plenary.nvim')
 Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' }) 
 
 -- File Explorer
-Plug('nvim-telescope/telescope-file-browser.nvim')
+Plug('nvim-tree/nvim-tree.lua')
+Plug('nvim-tree/nvim-web-devicons')
 
 -- LSP and Autocompletion
 Plug('neovim/nvim-lspconfig')
@@ -138,9 +142,25 @@ keymap('n', 'gt', ':Lspsaga term_toggle<CR>', opts)
 keymap('n', '<C-s>', ':w<CR>', opts)
 
 -- File Explorer
-vim.keymap.set("n", "<leader>o", ":Telescope file_browser path=%:p:h select_buffer=true<CR>")
+vim.keymap.set("n", "<leader>o", ":NvimTreeToggle path=%:p:h <CR>")
 
 -- ====== Plugin Configurations ======
+
+-- ====== NvimTree ======
+require("nvim-tree").setup({
+  sort = {
+    sorter = "case_sensitive",
+  },
+  view = {
+    width = 30,
+  },
+  renderer = {
+    group_empty = true,
+  },
+  filters = {
+    dotfiles = true,
+  },
+})
 
 -- ====== GitSigns ======
 require('gitsigns').setup({
@@ -176,7 +196,6 @@ require("noice").setup({
 
 -- ====== Telescope ======
 require("telescope").setup({})
-require("telescope").load_extension("file_browser")
 
 -- ====== Autopairs and Autotag ======
 require("nvim-ts-autotag").setup()
