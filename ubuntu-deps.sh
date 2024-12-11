@@ -1,2 +1,1 @@
-sudo apt install python3.12-venv wl-clipboard ripgrep inotify-tools
-
+sudo apt install python-venv wl-clipboard ripgrep inotify-tools fd-find

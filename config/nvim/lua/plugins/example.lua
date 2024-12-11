@@ -9,14 +9,14 @@ if true then return {} end
 -- * disable/enabled LazyVim plugins
 -- * override the configuration of LazyVim plugins
 return {
-  -- add gruvbox
-  { "ellisonleao/gruvbox.nvim" },
+  -- add monokai pro
+  { "loctvl842/monokai-pro.nvim", priority = 1000 },
 
-  -- Configure LazyVim to load gruvbox
+  -- Configure LazyVim to load monokai-pro
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "gruvbox",
+      colorscheme = "monokai-pro",
     },
   },
 
