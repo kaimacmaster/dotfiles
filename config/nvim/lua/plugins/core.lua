@@ -4,7 +4,7 @@ return {
 
   -- configure lazyvim to load monokai-pro
   {
-    "lazyvim/lazyvim",
+    "LazyVim/LazyVim",
     opts = {
       colorscheme = "monokai-pro",
     },
