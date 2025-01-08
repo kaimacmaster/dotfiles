@@ -92,6 +92,6 @@ keymap('n', 'gt', ':Lspsaga term_toggle<CR>', opts)
 keymap('n', '<C-s>', ':w<CR>', opts)
 
 -- File Explorer
-vim.keymap.set("n", "<leader>o", ":NvimTreeToggle path=%:p:h <CR>")
+vim.keymap.set("n", "<leader>o", ":Neotree toggle <CR>")
 
 
