@@ -1,10 +1,14 @@
 return {
   {
     "loctvl842/monokai-pro.nvim",
-    lazy = false, -- make sure we load this during startup if it is your main colorscheme
-    priority = 1000, -- make sure to load this before all the other start plugins
+    lazy = false,
+    priority = 1000, 
     config = function()
-      -- load the colorscheme here
+      require("monokai-pro").setup({
+        transparent_background = true,
+        terminal_colors = true,
+        filter = "spectrum",
+      })
       vim.cmd([[colorscheme monokai-pro]])
     end,
   },
@@ -13,62 +17,16 @@ return {
   { 'lewis6991/gitsigns.nvim', config = function()
     require('gitsigns').setup({
       current_line_blame = true,
-      current_line_blame_opts = { delay = 300 },
-    })
-  end },
+    }) end 
+  },
 
   -- UI Enhancements
-  { 'folke/noice.nvim', config = function()
-    require("noice").setup({
-      lsp = {
-        override = {
-          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-          ["vim.lsp.util.stylize_markdown"] = true,
-          ["cmp.entry.get_documentation"] = true,
-        },
-      },
-      presets = {
-        bottom_search = true,
-        command_palette = true,
-        long_message_to_split = true,
-        inc_rename = false,
-        lsp_doc_border = false,
-      },
-    })
-  end },
   { 'MunifTanjim/nui.nvim' },
-  { 'rcarriga/nvim-notify', config = function()
-    require('notify').setup({
-      stages = 'fade',
-      timeout = 5000,
-      background_colour = '#1e222a',
-      text_colour = '#abb2bf',
-      icons = {
-        ERROR = ' ',
-        WARN = ' ',
-        INFO = ' ',
-        DEBUG = ' ',
-        TRACE = '✎ ',
-      },
-    })
-  end },
-  { 'tpope/vim-surround' },
-  { 'tpope/vim-repeat' },
-  { 'tpope/vim-abolish' },
-  { 'preservim/nerdcommenter' },
-  { 'loctvl842/monokai-pro.nvim', config = function()
-    require("monokai-pro").setup({
-      transparent_background = true,
-      terminal_colors = true,
-      filter = "spectrum",
-    })
-    vim.cmd([[colorscheme monokai-pro]])
-  end },
   { 'nvim-lualine/lualine.nvim', config = function()
     require('lualine').setup({
       options = { theme = 'monokai-pro' },
-    })
-  end },
+    }) end 
+  },
 
   -- Fuzzy Finder
   { 'nvim-telescope/telescope.nvim', tag = '0.1.8', dependencies = { 'nvim-lua/plenary.nvim' } },

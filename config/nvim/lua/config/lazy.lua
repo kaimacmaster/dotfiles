@@ -30,7 +30,7 @@ vim.opt.scrolloff = 10            -- Always keep 10 lines in view
 vim.opt.ignorecase = true         -- Ignore case in searches
 vim.opt.smartcase = true          -- Override ignorecase if uppercase is used
 vim.opt.number = true             -- Show line numbers
-vim.opt.termguicolors = true      -- Enable 24-bit colour 
+vim.opt.termguicolors = true      -- Enable 24-bit colour
 
 -- Setup lazy.nvim
 require("lazy").setup({
@@ -53,6 +53,26 @@ keymap('n', '<leader>y', '"+y', opts)
 keymap('n', '<leader>p', '"+p', opts)
 keymap('v', '<leader>y', '"+y', opts)
 keymap('v', '<leader>p', '"+p', opts)
+
+-- Support WSL2
+vim.g.clipboard = {
+  name = "WslClipboard",
+  copy = {
+    ["+"] = "clip.exe",
+    ["*"] = "clip.exe",
+  },
+  paste = {
+    ["+"] = function()
+      return vim.fn.systemlist("powershell.exe -Command Get-Clipboard | tr -d '\r'")
+    end,
+    ["*"] = function()
+      return vim.fn.systemlist("powershell.exe -Command Get-Clipboard | tr -d '\r'")
+
+    end,
+  },
+  cache_enabled = 0,
+}
+
 
 -- Move Lines Up and Down with Alt/Opt
 local move_opts = { noremap = true, silent = true }
