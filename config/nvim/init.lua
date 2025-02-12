@@ -15,13 +15,13 @@ vim.opt.rtp:prepend(lazypath)
 -- Load plugins
 -- Set up plugins
 require('lazy').setup {
-  require 'plugins.neotree',
   require 'plugins.colortheme',
-  require 'plugins.telescope',
-  require 'plugins.autocomplete',
+  require 'plugins.lualine',
+  require 'plugins.neotree',
+  require 'plugins.treesitter',
   require 'plugins.lsp',
   require 'plugins.none-ls',
-  require 'plugins.treesitter',
+  require 'plugins.autocomplete',
+  require 'plugins.telescope',
   require 'plugins.misc',
-  require 'plugins.lualine',
 }

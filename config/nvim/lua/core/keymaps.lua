@@ -2,7 +2,7 @@
 vim.g.mapleader = ','
 vim.g.maplocalleader = ','
 
--- Disable the spacebar key's default behavior in Normal and Visual modes
+-- Disable the leader key's default behavior in Normal and Visual modes
 vim.keymap.set({ 'n', 'v' }, ',', '<Nop>', { silent = true })
 
 -- For conciseness
@@ -19,13 +19,15 @@ vim.keymap.set('n', '<M-j>', ':m+1<CR>==', opts)
 vim.keymap.set('n', '<M-k>', ':m-2<CR>==', opts)
 vim.keymap.set('v', '<M-j>', ":m '>+1<CR>gv=gv", opts)
 vim.keymap.set('v', '<M-k>', ":m '<-2<CR>gv=gv", opts)
-vim.keymap.set('n', '<Alt-j>', ':m+1<CR>==', opts)
-vim.keymap.set('n', '<Alt-k>', ':m-2<CR>==', opts)
-vim.keymap.set('v', '<Alt-j>', ":m '>+1<CR>gv=gv", opts)
-vim.keymap.set('v', '<Alt-k>', ":m '<-2<CR>gv=gv", opts)
+
+-- mac specific alt+j/k
+vim.keymap.set('n', '∆', ':m+1<CR>==', opts)
+vim.keymap.set('n', '˚', ':m-2<CR>==', opts)
+vim.keymap.set('v', '∆', ":m '>+1<CR>gv=gv", opts)
+vim.keymap.set('v', '˚', ":m '<-2<CR>gv=gv", opts)
 
 -- save file
-vim.keymap.set('n', '<C-s>', '<cmd> w <CR>', opts)
+vim.keymap.set('n', '<C-s>', '<cmd>noautocmd w <CR>', opts)
 
 -- save file without auto-formatting
 vim.keymap.set('n', '<leader>sn', '<cmd>noautocmd w <CR>', opts)
@@ -38,12 +40,6 @@ vim.keymap.set('n', '<leader>q', ':q!<CR>', opts)
 
 -- Remove Quotes from Keys in an Object
 vim.keymap.set('n', '<leader>dq', [[:%s/['"]\(\w\+\)['"]:/\1:/g<CR>]], opts)
-
--- Telescope Keybindings
-vim.keymap.set('n', '<leader>ff', ':Telescope find_files<CR>', opts)
-vim.keymap.set('n', '<leader>fg', ':Telescope live_grep<CR>', opts)
-vim.keymap.set('n', '<leader>fb', ':Telescope buffers<CR>', opts)
-vim.keymap.set('n', '<leader>fh', ':Telescope help_tags<CR>', opts)
 
 -- delete single character without copying into register
 vim.keymap.set('n', '<leader>x', '"_x', opts)
