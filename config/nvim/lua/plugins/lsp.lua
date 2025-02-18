@@ -62,6 +62,11 @@ return {
         --  To jump back, press <C-t>.
         map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
 
+        -- Find where the file is
+        map('gs', function()
+          require('telescope.builtin').find_files { default_text = vim.fn.expand('<cword>'):lower() }
+        end, '[G]o [S]earch the file')
+
         -- Find references for the word under your cursor.
         map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
 

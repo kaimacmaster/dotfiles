@@ -97,3 +97,19 @@ vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous dia
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+
+vim.keymap.set('v', '<leader>wss', function()
+  -- Get the selected text
+  local s_start = vim.fn.getpos "'<"
+  local s_end = vim.fn.getpos "'>"
+
+  -- Convert the selection into a range
+  local lines = vim.api.nvim_buf_get_lines(0, s_start[2] - 1, s_end[2], false)
+  local selection = table.concat(lines, '\n')
+
+  -- Wrap with <strong> tags
+  local wrapped = '<strong>' .. selection .. '</strong>'
+
+  -- Replace selection with wrapped text
+  vim.api.nvim_buf_set_text(0, s_start[2] - 1, s_start[3] - 1, s_end[2] - 1, s_end[3], { wrapped })
+end, { desc = '[W]rap [S]election in <[S]trong> tags' })

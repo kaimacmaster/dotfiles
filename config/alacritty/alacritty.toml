@@ -1,13 +1,13 @@
 live_config_reload = true
 
 [window]
-opacity = 0.9
-padding = { x = 7, y = 10 }
+opacity = 0.95
+padding = { x = 0, y = 0 }
 decorations = "Full"
-dynamic_padding = true
+dynamic_padding = false
 blur = true
 
 [font]
-normal = { family = "JetBrainsMono Nerd Font" }
-size = 14.0
+normal = { family = "ComicCodeLigatures" }
+size = 11.0
 
