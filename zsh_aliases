@@ -14,4 +14,3 @@ alias gd='git diff'
 alias gl='git log --left-right --decorate --graph'
 alias zshrc='nvim ~/.zshrc'
 
-
