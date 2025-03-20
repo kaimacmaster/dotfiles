@@ -4,11 +4,11 @@ gitauto() {
 
     # Check if there are any staged changes to commit
     if ! git diff-index --quiet HEAD --; then
-        # Commit with a message that includes the current date and time
-        git commit -m "Autosave: $(date '+%Y-%m-%d %H:%M:%S')"
-
         # Show the current status
         git status
+
+        # Commit with a message that includes the current date and time
+        git commit -m "Autosave: $(date '+%Y-%m-%d %H:%M:%S')"
 
         # Push changes to the remote repository
         git push
