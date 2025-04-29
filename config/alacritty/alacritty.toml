@@ -1,11 +1,11 @@
 [window]
-padding = { x = 0, y = 0 }
+padding = { x = 8, y = 8 }
 decorations = "Full"
 dynamic_padding = false
 blur = true
 
 [font]
-normal = { family = "Cascadia Mono NF", style = "Regular" }
+normal = { family = "Comic Code Ligatures", style = "Regular" }
 
 [general]
 live_config_reload = true
